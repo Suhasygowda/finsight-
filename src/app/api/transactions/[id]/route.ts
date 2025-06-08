@@ -1,4 +1,3 @@
-// src/app/api/transactions/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { z } from 'zod'
@@ -14,12 +13,14 @@ const TransactionUpdateSchema = z.object({
 // GET single transaction
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
+    
     const transaction = await prisma.transaction.findUnique({
       where: {
-        id: params.id,
+        id: id,
       },
       include: {
         category: true,
@@ -45,15 +46,16 @@ export async function GET(
 // PUT update transaction
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const body = await request.json()
     const validatedData = TransactionUpdateSchema.parse(body)
 
     // Check if transaction exists
     const existingTransaction = await prisma.transaction.findUnique({
-      where: { id: params.id },
+      where: { id },
     })
 
     if (!existingTransaction) {
@@ -71,7 +73,7 @@ export async function PUT(
 
     const updatedTransaction = await prisma.transaction.update({
       where: {
-        id: params.id,
+        id,
       },
       data: updateData,
       include: {
@@ -97,12 +99,14 @@ export async function PUT(
 // DELETE transaction
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
+    
     // Check if transaction exists
     const existingTransaction = await prisma.transaction.findUnique({
-      where: { id: params.id },
+      where: { id },
     })
 
     if (!existingTransaction) {
@@ -114,7 +118,7 @@ export async function DELETE(
 
     await prisma.transaction.delete({
       where: {
-        id: params.id,
+        id,
       },
     })
 
