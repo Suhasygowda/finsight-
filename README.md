@@ -40,7 +40,7 @@ docker --version  # Should show Docker version
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/finsight.git
+https://github.com/Suhasygowda/finsight-.git
 cd finsight
 ```
 
