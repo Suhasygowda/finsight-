@@ -3,13 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "seed": "tsx prisma/seed.ts",
     "dev": "next dev",
-    "prisma:migrate": "npx prisma migrate deploy",
-"generate:prisma": "npx prisma generate",
-"build:app": "tsc",
-"build": "npm run generate:prisma && npm run build:app",
-
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "db:generate": "prisma generate",
