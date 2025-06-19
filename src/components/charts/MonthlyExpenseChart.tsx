@@ -98,6 +98,18 @@ export function MonthlyExpenseChart({ refresh }: { refresh: number }) {
         <CardTitle className="text-lg sm:text-xl">Monthly Overview</CardTitle>
       </CardHeader>
       <CardContent className="p-3 sm:p-6">
+        {/* Legend */}
+        <div className="flex items-center justify-center gap-6 mb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-green-500 rounded"></div>
+            <span className="text-sm text-gray-600">Income</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-red-500 rounded"></div>
+            <span className="text-sm text-gray-600">Expenses</span>
+          </div>
+        </div>
+        
         <div className="w-full overflow-hidden">
           <ResponsiveContainer width="100%" height={250} className="sm:!h-80 md:!h-96">
             <BarChart 
